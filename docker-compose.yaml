@@ -2,24 +2,24 @@ version: '3.7'
 
 services:
 
-  postgres:
-    container_name: db-passin
-    image: postgres:16.2-alpine3.19
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=passin
-    volumes:
-      - 'db:/var/lib/postgresql/data'
-    networks:
-      - passin
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U myuser"]
-      interval: 3s
-      retries: 5
-      timeout: 5s
+  # postgres:
+  #   container_name: db-passin
+  #   image: postgres:16.2-alpine3.19
+  #   ports:
+  #     - 5432:5432
+  #   environment:
+  #     - POSTGRES_USER=${POSTGRES_USER}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  #     - POSTGRES_DB=${POSTGRES_DB}
+  #   volumes:
+  #     - 'db:/var/lib/postgresql/data'
+  #   networks:
+  #     - passin
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 3s
+  #     retries: 5
+  #     timeout: 5s
 
   api-pass-in:
     build:
@@ -28,11 +28,11 @@ services:
     ports:
       - 3001:3333
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/passin?schema=public
+      - DATABASE_URL=postgresql://${NEON_USER}:${NEON_PASSWORD}@${NEON_SERVER}/${NEON_DB}?sslmode=require
       - API_BASE_URL=http://localhost:3333
-    depends_on:
-      postgres:
-        condition: service_healthy
+    # depends_on:
+    #   postgres:
+    #     condition: service_healthy
     networks:
       - passin
 
