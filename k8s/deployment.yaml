@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: passin
-        image: netorossetti/nlw-unite-devops:bfbdf2f
+        image: netorossetti/nlw-unite-devops:ca11cb8
         env:
         - name: DATABASE_URL
           valueFrom:
