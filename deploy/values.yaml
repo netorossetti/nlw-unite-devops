@@ -2,7 +2,7 @@ replicaCount: 5
 image:
   repository: netorossetti/nlw-unite-devops
   pullPolicy: Always
-  tag: b24f9f8
+  tag: 58f0bd6
   port: 3333
 imagePullSecrets: []
 nameOverride: ''
